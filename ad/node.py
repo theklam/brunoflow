@@ -28,7 +28,7 @@ class Node:
         ndim (int): The same as numpy.ndarray.ndim
     """
 
-    def __init__(self, backward_func=None, inputs=[], forward_func):
+    def __init__(self, backward_func=None, inputs=[], forward_func=None):
         # self.val = val
         # self.grad = np.zeros_like(val,dtype=np.float64)
         self.backward_func = backward_func
