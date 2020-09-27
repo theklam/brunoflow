@@ -31,6 +31,8 @@ class Node:
     def __init__(self, backward_func=None, inputs=[], forward_func=None):
         # self.val = val
         # self.grad = np.zeros_like(val,dtype=np.float64)
+        self.val = None
+        self.grad = None
         self.backward_func = backward_func
         self.inputs = inputs
         self.__num_uses = 0
@@ -49,7 +51,10 @@ class Node:
         return self.val.ndim
 
     def __str__(self):
-        return f'node(val: {self.val}, grad: {self.grad})'
+        if self.val != None and self.grad != None:
+            return f'node(val: {self.val}, grad: {self.grad})'
+        else:
+            return 'self.val and self.grad not yet set'
     def __repr__(self):
         return str(self)
 
