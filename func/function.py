@@ -49,6 +49,7 @@ def make_function(forward, backward=None):
         # Return a Node which has all the information necessary to perform the backward pass
         return ad.Node(out_val, backward_wrapper if backward else None, args)
 
+    print('kalvins brunoflow')
     return autodiff_function
 
 
