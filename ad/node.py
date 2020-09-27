@@ -51,10 +51,10 @@ class Node:
         return self.val.ndim
 
     def __str__(self):
-        if self.val != None and self.grad != None:
-            return f'node(val: {self.val}, grad: {self.grad})'
-        else:
+        if self.val == None and self.grad == None:
             return 'self.val and self.grad not yet set'
+        else:
+            return f'node(val: {self.val}, grad: {self.grad})'
     def __repr__(self):
         return str(self)
 
