@@ -68,7 +68,7 @@ class Node:
         
         # once i have calculated all of the values that run into the neighbors,
         # then i can take this values to construct me. 
-        in_vals = [a.val if isinstance(a, Node) else a for a in inp]
+        in_vals = [a.val if isinstance(a, Node) else a for a in self.inputs]
         self.val = self.forward_func(*in_vals)
         self.grad = np.zeros_like(self.val,dtype=np.float64)
 
