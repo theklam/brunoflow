@@ -42,6 +42,7 @@ def make_function(forward, backward=None):
         """
         The new autodiff function that we have created
         """
+        print(forward)
         return ad.Node(backward_wrapper if backward else None, args, forward)
     print('kalvins brunoflow with lazy exec!')
     return autodiff_function
