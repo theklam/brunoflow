@@ -28,12 +28,13 @@ class Node:
         ndim (int): The same as numpy.ndarray.ndim
     """
 
-    def __init__(self, val, backward_func=None, inputs=[]):
-        self.val = val
-        self.grad = np.zeros_like(val,dtype=np.float64)
+    def __init__(self, backward_func=None, inputs=[], forward_func):
+        # self.val = val
+        # self.grad = np.zeros_like(val,dtype=np.float64)
         self.backward_func = backward_func
         self.inputs = inputs
         self.__num_uses = 0
+        self.forward_func = forward_func
 
     @property
     def shape(self):
@@ -51,6 +52,20 @@ class Node:
         return f'node(val: {self.val}, grad: {self.grad})'
     def __repr__(self):
         return str(self)
+
+    # Add a 'run_graph' method to the Node class
+    # This method is intended to be called on the output node of the graph
+    def run_graph(self):
+        # run it for all the things leading into here.
+        for inp in self.inputs:
+            if isinstance(inp, Node):
+                inp.run_graph()
+        
+        # once i have calculated all of the values that run into the neighbors,
+        # then i can take this values to construct me. 
+        in_vals = [a.val if isinstance(a, Node) else a for a in inp]
+        self.val = self.forward_func(*in_vals)
+        self.grad = np.zeros_like(self.val,dtype=np.float64)
 
     def __compute_num_uses(self):
         """

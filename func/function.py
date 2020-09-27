@@ -42,12 +42,7 @@ def make_function(forward, backward=None):
         """
         The new autodiff function that we have created
         """
-        # Extract raw values from any Nodes in the argument list
-        in_vals = [ad.value(a) for a in args]
-        # Apply the forward function
-        out_val = forward(*in_vals)
-        # Return a Node which has all the information necessary to perform the backward pass
-        return ad.Node(out_val, backward_wrapper if backward else None, args)
+        return ad.Node(backward_wrapper if backward else None, args, forward)
     print('kalvins brunoflow')
     return autodiff_function
 
